@@ -1,6 +1,6 @@
 import {Navigation} from 'react-native-navigation';
 import HomePage from './screens/HomePage'
-import Test from './screens/Test';
+import TestPage from './screens/TestPage';
 import Results from './screens/Results';
 import Drawer from './containers/Drawer';
 import { Dimensions } from 'react-native';
@@ -8,7 +8,7 @@ import { Dimensions } from 'react-native';
 Navigation.registerComponent(`Drawer`, () => Drawer);
 Navigation.registerComponent(`HomePage`, () => HomePage);
 Navigation.registerComponent(`Results`, () => Results);
-Navigation.registerComponent(`Test`, () => Test);
+Navigation.registerComponent(`TestPage`, () => TestPage);
 
 const { width } = Dimensions.get('window');
 Navigation.events().registerAppLaunchedListener(() => {
@@ -26,10 +26,11 @@ Navigation.events().registerAppLaunchedListener(() => {
       title: {
         color: 'white',
         alignment: 'center',
-        text: 'Quiz app'
+        text: 'Home page',
+        fontSize: 24
       },
       background: {
-        color: 'blue'
+        color: '#0E7DDF'
       }
     }
   });

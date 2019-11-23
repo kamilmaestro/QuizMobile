@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, Button, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import {Footer} from './../components/Footer'
+import {TestOverview} from '../components/TestOverview';
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -15,7 +17,7 @@ export default class HomePage extends Component {
           topBar: {
             title: {
               text: screenName
-            },
+            }
           }
         }
       }
@@ -26,41 +28,16 @@ export default class HomePage extends Component {
     return (
       <View>
         <ScrollView >
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <Button onPress={() => this.goToScreen('Test')} title={'Test'}>Test</Button>
-          <View style={styles.footer}>
-            <Text >Get to know uor exams results</Text>
-            <Button onPress={() => this.goToScreen('Results')} title={'Results'}>Results</Button>
+          <TestOverview click={() => this.goToScreen('TestPage')} title={'First'} type={'Sport'} description={'Very nice test for everyone :P'}/>
+          <TestOverview click={() => this.goToScreen('TestPage')} title={'Second'} type={'History'} description={'If you wish you can try yourself in this test <3'}/>
+          <TestOverview click={() => this.goToScreen('TestPage')} title={'Third'} type={'Science'} description={'Very nice test for everyone :P'}/>
+          <TestOverview click={() => this.goToScreen('TestPage')} title={'Fourth'} type={'Sport'} description={'Super test :)'}/>
+          <TestOverview click={() => this.goToScreen('TestPage')} title={'Fifth'} type={'Sport'} description={'Very nice test for everyone :P yes even for you'}/>
+          <View>
+            <Footer click={() => this.goToScreen('Results')} text={'Check!'}/>
           </View>
         </ScrollView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  footer: {
-    fontSize: 18,
-    borderWidth: 1,
-    justifyContent: 'center'
-  }
-});
