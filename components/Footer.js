@@ -21,19 +21,21 @@ const styles = StyleSheet.create({
   },
   footerText: {
     textAlign: 'center',
-    fontSize: 24
+    color: 'white',
+    fontSize: 22
   },
   resultsBtn: {
     alignItems: 'center',
-    backgroundColor: '#0E7DDF',
     marginTop: 10,
     margin: 10,
+    borderWidth: 1.5,
+    borderColor: 'white',
     borderRadius: 20,
     alignSelf: 'center'
   },
   resultsBtnText: {
     color: 'white',
-    fontSize: 26,
+    fontSize: 28,
     paddingHorizontal: 50,
     paddingVertical: 10
   }
