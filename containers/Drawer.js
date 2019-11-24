@@ -38,7 +38,7 @@ export default class Drawer extends Component{
         <View style={styles.logoContainer}>
           <Icon style={styles.icon} name='wechat' size={125}/>
         </View>
-        <View>
+        <View style={styles.btnContainer}>
           <GoToBtn onPress={() => this.goToScreen('HomePage')} screenName={'Home page'}/>
           <GoToBtn onPress={() => this.goToScreen('Results')} screenName={'Results'}/>
         </View>
@@ -59,10 +59,13 @@ const styles = StyleSheet.create({
   titleTxt: {
     marginTop: 20,
     textAlign: 'center',
-    fontSize: 34,
+    fontSize: 40,
     fontWeight: 'bold'
   },
   icon: {
     color: '#0E7DDF'
+  },
+  btnContainer: {
+    margin: 10
   }
 });
