@@ -26,7 +26,7 @@ export default class HomePage extends Component {
 
   render() {
     return (
-      <View style={styles.mainContainer}>
+      <View>
         <ScrollView >
           <TestOverview click={() => this.goToScreen('TestPage')} title={'First'} type={'Sport'} description={'Very nice test for everyone :P'}/>
           <TestOverview click={() => this.goToScreen('TestPage')} title={'Second'} type={'History'} description={'If you wish you can try yourself in this test <3'}/>
