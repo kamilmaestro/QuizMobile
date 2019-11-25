@@ -4,11 +4,11 @@ import {Text, View, StyleSheet} from 'react-native';
 export const Result = ({nick, score, total, type, date}) => {
   return (
     <View style={styles.mainContainer}>
-      <Text style={[styles.content, {marginLeft: 3}]}>{nick}</Text>
-      <Text style={[styles.content, {flex: 0.25}]}>{score}</Text>
-      <Text style={[styles.content, {flex: 0.25}]}>{total}</Text>
-      <Text style={styles.content}>{type}</Text>
-      <Text style={[styles.content, {marginRight: 3}]}>{date}</Text>
+      <Text style={[styles.content, {marginLeft: 5}]}>{nick}</Text>
+      <Text style={[styles.content, {flex: 0.5}]}>{score}</Text>
+      <Text style={[styles.content, {flex: 0.5}]}>{total}</Text>
+      <Text style={[styles.content, {flex: 0.8}]}>{type}</Text>
+      <Text style={[styles.content, {marginRight: 5}]}>{date}</Text>
     </View>
   )
 };
@@ -24,9 +24,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    marginHorizontal: 1,
+    paddingHorizontal: 5,
     marginVertical: 10,
-    textAlign: 'center',
     fontSize: 16
   }
 });
