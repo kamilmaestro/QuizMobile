@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import {Footer} from './../components/Footer'
 import {TestOverview} from '../components/TestOverview';
+import Regulations from './Regulations';
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class HomePage extends Component {
   render() {
     return (
       <View>
+        <Regulations/>
         <ScrollView >
           <TestOverview click={() => this.goToScreen('TestPage')} title={'First'} type={'Sport'} description={'Very nice test for everyone :P'}/>
           <TestOverview click={() => this.goToScreen('TestPage')} title={'Second'} type={'History'} description={'If you wish you can try yourself in this test <3'}/>

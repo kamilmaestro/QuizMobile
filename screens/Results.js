@@ -96,8 +96,21 @@ export default class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: DATA
+      data: DATA,
+      isFetching: false
     }
+  }
+
+  onRefresh() {
+    this.setState({ isFetching: true}, () => {
+      this.fetchData()
+    });
+  }
+
+  fetchData() {
+    this.setState({
+      //isFetching: false
+    });
   }
 
   render() {
@@ -111,6 +124,8 @@ export default class Results extends Component {
             <Result nick={item.nick} score={item.score} total={item.total} type={item.type} date={item.date}/>
           }
           keyExtractor={(item, index) => index.toString()}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
         />
       </View>
     );
