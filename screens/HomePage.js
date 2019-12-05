@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet, FlatList, RefreshControl} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import {Footer} from './../components/Footer'
 import {TestOverview} from '../components/TestOverview';
@@ -8,6 +8,34 @@ import Regulations from './Regulations';
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isFetching: false,
+      tests: []
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData()
+  }
+
+  onRefresh() {
+    this.setState({ isFetching: true}, () => {
+      this.fetchData()
+    });
+  }
+
+  fetchData() {
+    fetch('http://tgryl.pl/quiz/tests')
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          isFetching: false,
+          tests: json
+        });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   }
 
   goToScreen = (screenName) => {
@@ -25,16 +53,23 @@ export default class HomePage extends Component {
     })
   };
 
+  splitTags = (tags) => {
+    return tags.join(' ')
+  };
+
   render() {
     return (
       <View>
         <Regulations/>
-        <ScrollView >
-          <TestOverview click={() => this.goToScreen('TestPage')} title={'First'} type={'Sport'} description={'Very nice test for everyone :P'}/>
-          <TestOverview click={() => this.goToScreen('TestPage')} title={'Second'} type={'History'} description={'If you wish you can try yourself in this test <3'}/>
-          <TestOverview click={() => this.goToScreen('TestPage')} title={'Third'} type={'Science'} description={'Very nice test for everyone :P'}/>
-          <TestOverview click={() => this.goToScreen('TestPage')} title={'Fourth'} type={'Sport'} description={'Super test :)'}/>
-          <TestOverview click={() => this.goToScreen('TestPage')} title={'Fifth'} type={'Sport'} description={'Very nice test for everyone :P yes even for you my dear friend <3'}/>
+        <ScrollView refreshControl={
+          <RefreshControl refreshing={this.state.isFetching} onRefresh={() => this.onRefresh()} />
+        }>
+          <FlatList data={this.state.tests}
+            renderItem={({item}) =>
+              <TestOverview click={() => this.goToScreen('TestPage')} name={item.name} tags={this.splitTags(item.tags)} description={item.description}/>
+            }
+            keyExtractor={(item, index) => index.toString()}
+          />
           <View style={styles.footer}>
             <Footer click={() => this.goToScreen('Results')} text={'Check!'}/>
           </View>

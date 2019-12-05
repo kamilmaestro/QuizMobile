@@ -1,18 +1,18 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-export const TestOverview = (props) => {
+export const TestOverview = ({click, name, tags, description}) => {
   return (
     <View style={styles.testContainer}>
-      <TouchableOpacity onPress={props.click}>
-        <Text style={styles.testTitle}>{props.title}</Text>
+      <TouchableOpacity onPress={click}>
+        <Text style={styles.testName}>{name}</Text>
         <View style={styles.details}>
-          <Text style={styles.typeTxt}>{props.type}</Text>
-          <Text style={styles.descriptionTxt}>{props.description}</Text>
+          <Text style={styles.tagsTxt}>{tags}</Text>
+          <Text style={styles.descriptionTxt}>{description}</Text>
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderColor: '#0E7DDF',
     borderRadius: 20
   },
-  testTitle: {
+  testName: {
     fontSize: 26,
     marginTop: 10,
     marginHorizontal: 10
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5
   },
-  typeTxt: {
+  tagsTxt: {
     fontSize: 18,
     fontWeight: 'bold'
   },
