@@ -38,7 +38,11 @@ export default class HomePage extends Component {
       });
   }
 
-  goToScreen = (screenName) => {
+  goToTest = (testId) => {
+    this.goToScreen('TestPage', testId)
+  };
+
+  goToScreen = (screenName, testId) => {
     Navigation.push(this.props.componentId, {
       component: {
         name: screenName,
@@ -48,6 +52,9 @@ export default class HomePage extends Component {
               text: screenName
             }
           }
+        },
+        passProps: {
+          testId: testId
         }
       }
     })
@@ -66,7 +73,7 @@ export default class HomePage extends Component {
         }>
           <FlatList data={this.state.tests}
             renderItem={({item}) =>
-              <TestOverview click={() => this.goToScreen('TestPage')} name={item.name} tags={this.splitTags(item.tags)} description={item.description}/>
+              <TestOverview click={() => this.goToTest(item.id)} name={item.name} tags={this.splitTags(item.tags)} description={item.description}/>
             }
             keyExtractor={(item, index) => index.toString()}
           />
