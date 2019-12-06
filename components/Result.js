@@ -15,9 +15,11 @@ export const Result = ({nick, score, total, type, date}) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     flexDirection: 'row',
     marginHorizontal: 2,
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 3,
     borderWidth: 1.5,
     borderRadius: 20,
     borderColor: '#0E7DDF'

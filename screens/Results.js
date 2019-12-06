@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {Result} from '../components/Result';
 import {ResultsHeader} from '../components/ResultsHeader';
 
@@ -38,19 +38,31 @@ export default class Results extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View>
           <ResultsHeader/>
         </View>
-        <FlatList data={this.state.data}
-          renderItem={({item}) =>
-            <Result nick={item.nick} score={item.score} total={item.total} type={item.type} date={item.date}/>
-          }
-          keyExtractor={(item, index) => index.toString()}
-          onRefresh={() => this.onRefresh()}
-          refreshing={this.state.isFetching}
-        />
+        <View style={styles.results}>
+          <FlatList data={this.state.data}
+            renderItem={({item}) =>
+              <Result nick={item.nick} score={item.score} total={item.total} type={item.type} date={item.date}/>
+            }
+            keyExtractor={(item, index) => index.toString()}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.state.isFetching}
+          />
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  results: {
+    flex: 1,
+    marginVertical: 3
+  }
+});
