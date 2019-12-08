@@ -49,7 +49,7 @@ export default class HomePage extends Component {
         options: {
           topBar: {
             title: {
-              text: screenName
+              text: screenName === 'TestPage' ? 'Test' : screenName
             }
           }
         },
