@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, ActivityIndicator} from 'react-native';
 import {TestHeader} from '../components/TestHeader';
+import {Loader} from '../components/Loader';
 
 export default class TestPage extends Component {
   constructor(props) {
@@ -18,24 +19,28 @@ export default class TestPage extends Component {
         duration: 0
       }],
       score: 0,
-      questionNr: 0
+      questionNr: 0,
+      isFetching: true
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchData();
-    //this.countTimeLeft();
   }
 
   fetchData() {
     fetch(`http://tgryl.pl/quiz/test/${this.props.testId}`)
-      .then(response => response.json())
+  .then(response => response.json())
       .then(json => {
-        this.setState(() => ({
+        this.setState({
           id: json.id,
           name: json.name,
-          tasks: json.tasks
-        }));
+          tasks: json.tasks,
+          isFetching: false
+        });
+      })
+      .catch(e => {
+        console.error(e);
       })
   }
 
@@ -49,29 +54,82 @@ export default class TestPage extends Component {
     }
   }
 
-  // newQuestion() {
-  //   this.setState(() => ({
-  //     questionNr: this.state.questionNr + 1
-  //   }));
-  // }
+  newQuestion(isCorrect) {
+    this.checkQuestion(isCorrect);
+    this.setState(() => ({
+      isFetching: false
+    }));
+  }
+
+  checkQuestion(isCorrect) {
+    this.setState({
+      isFetching: true,
+      score: isCorrect ? this.state.score + 1 : this.state.score,
+      questionNr: this.state.questionNr + 1
+    });
+  }
 
   render() {
-    return (
-      <View style={styles.mainContainer}>
+    if(this.state.isFetching === true) {
+      return (
+        <Loader/>
+      )
+    } else {
+      let answers = [];
+      for(let i = 0; i < this.state.tasks[this.state.questionNr].answers.length; i++) {
+        answers.push(
+          <TouchableOpacity key={i} style={styles.answerBtn} onPress={() => this.newQuestion(this.state.tasks[this.state.questionNr].answers[i].isCorrect)}>
+            <Text style={styles.answerBtnText}>{this.state.tasks[this.state.questionNr].answers[i].content}</Text>
+          </TouchableOpacity>
+        );
+      }
+
+      return (
         <View>
-          {console.log(this.state.tasks[1])}
           <TestHeader questionNr={this.state.questionNr}
-                      questionsSize={this.state.tasks.length}
-                      timeLeft={this.state.tasks[this.state.questionNr].duration}
-                      />
+                      questionsLength={this.state.tasks.length}
+                      timeLeft={this.state.tasks ? this.state.tasks[this.state.questionNr].duration : ''}
+          />
+          <View style={styles.testBody}>
+            <Text style={styles.testQuestion}>{this.state.tasks[this.state.questionNr].question}</Text>
+            <View style={styles.answers}>
+              {answers}
+            </View>
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-
+  testBody: {
+    margin: 5
+  },
+  testQuestion: {
+    margin: 5,
+    fontSize: 22
+  },
+  answers: {
+    marginTop: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1.5,
+    borderColor: '#0E7DDF',
+    borderRadius: 20
+  },
+  answerBtn: {
+    width: '100%',
+    alignItems: 'center',
+    margin: 5,
+    borderWidth: 1.5,
+    borderColor: '#0E7DDF',
+    borderRadius: 20,
+    alignSelf: 'center'
+  },
+  answerBtnText: {
+    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5
   }
 });

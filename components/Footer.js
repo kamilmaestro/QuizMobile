@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22
   },
-  resultsBtn: {
+  answerBtn: {
     alignItems: 'center',
     marginTop: 10,
     margin: 10,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignSelf: 'center'
   },
-  resultsBtnText: {
+  answerBtnText: {
     color: 'white',
     fontSize: 28,
     paddingHorizontal: 50,
