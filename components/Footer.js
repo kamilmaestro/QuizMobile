@@ -5,8 +5,8 @@ export const Footer = (props) => {
   return (
     <View style={styles.footer}>
       <Text style={styles.footerText}>Get to know your ranking results</Text>
-      <TouchableOpacity style={styles.resultsBtn} onPress={props.click}>
-        <Text style={styles.resultsBtnText}>{props.text}</Text>
+      <TouchableOpacity style={styles.answerBtn} onPress={props.click}>
+        <Text style={styles.answerBtnText}>{props.text}</Text>
       </TouchableOpacity>
     </View>
   )

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {TestHeader} from '../components/TestHeader';
 import {Loader} from '../components/Loader';
+import shortId from 'shortid';
 
 export default class TestPage extends Component {
   constructor(props) {
@@ -76,13 +77,13 @@ export default class TestPage extends Component {
       )
     } else {
       let answers = [];
-      for(let i = 0; i < this.state.tasks[this.state.questionNr].answers.length; i++) {
+      this.state.tasks[this.state.questionNr].answers.map(answer => {
         answers.push(
-          <TouchableOpacity key={i} style={styles.answerBtn} onPress={() => this.newQuestion(this.state.tasks[this.state.questionNr].answers[i].isCorrect)}>
-            <Text style={styles.answerBtnText}>{this.state.tasks[this.state.questionNr].answers[i].content}</Text>
+          <TouchableOpacity key={shortId.generate()} style={styles.answerBtn} onPress={() => this.newQuestion(answer.isCorrect)}>
+            <Text style={styles.answerBtnText}>{answer.content}</Text>
           </TouchableOpacity>
         );
-      }
+      });
 
       return (
         <View>
