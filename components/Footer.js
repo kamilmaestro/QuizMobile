@@ -5,8 +5,8 @@ export const Footer = (props) => {
   return (
     <View style={styles.footer}>
       <Text style={styles.footerText}>Get to know your ranking results</Text>
-      <TouchableOpacity style={styles.answerBtn} onPress={props.click}>
-        <Text style={styles.answerBtnText}>{props.text}</Text>
+      <TouchableOpacity style={styles.btn} onPress={props.click}>
+        <Text style={styles.btnText}>{props.text}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22
   },
-  answerBtn: {
+  btn: {
     alignItems: 'center',
     marginTop: 10,
     margin: 10,
@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignSelf: 'center'
   },
-  answerBtnText: {
+  btnText: {
     color: 'white',
     fontSize: 28,
+    fontFamily: 'OpenSans-Regular',
     paddingHorizontal: 50,
     paddingVertical: 10
   }

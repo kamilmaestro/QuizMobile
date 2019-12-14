@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     fontSize: 40,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: 'RobotoCondensed-Regular'
   },
   icon: {
     color: '#0E7DDF'

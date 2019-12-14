@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   btnText: {
     alignSelf: 'center',
     paddingVertical: 5,
-    fontSize: 24
+    fontSize: 24,
+    fontFamily: 'OpenSans-Regular'
   }
 });

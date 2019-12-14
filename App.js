@@ -30,7 +30,8 @@ Navigation.events().registerAppLaunchedListener(() => {
         color: 'white',
         alignment: 'center',
         text: 'Home page',
-        fontSize: 32
+        fontSize: 32,
+        fontFamily: 'RobotoCondensed-Regular'
       },
       background: {
         color: '#0E7DDF'
