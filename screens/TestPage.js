@@ -33,7 +33,7 @@ export default class TestPage extends Component {
 
   fetchData() {
     fetch(`http://tgryl.pl/quiz/test/${this.props.testId}`)
-  .then(response => response.json())
+      .then(response => response.json())
       .then(json => {
         this.setState({
           id: json.id,
