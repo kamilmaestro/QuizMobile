@@ -1,15 +1,49 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GoToBtn} from '../components/GoToBtn';
 import {Navigation} from 'react-native-navigation';
+import _ from 'lodash'
 
 export default class Drawer extends Component{
   constructor(props) {
     super(props);
+    this.state = {
+      isFetching: false,
+      tests: []
+    };
   }
 
-  goToScreen = (screenName) => {
+  fetchData() {
+    fetch('http://tgryl.pl/quiz/tests')
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          isFetching: false,
+          tests: json
+        });
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  }
+
+  randomTest() {
+    if(typeof this.state.tests === 'undefined' || this.state.tests.length === 0) {
+      this.fetchData();
+      Alert.alert('Loading tests', 'Click again to get a random test');
+    } else {
+      let tests = this.state.tests.map(test => test.id);
+      const randomId = _.sample(tests);
+      this.goToTest(randomId);
+    }
+  }
+
+  goToTest = (testId) => {
+    this.goToScreen('TestPage', testId)
+  };
+
+  goToScreen = (screenName, testId) => {
     Navigation.mergeOptions('drawerId', {
       sideMenu: {
         left: {
@@ -23,9 +57,12 @@ export default class Drawer extends Component{
         options: {
           topBar: {
             title: {
-              text: screenName
+              text: screenName === 'TestPage' ? 'Test' : screenName
             }
           }
+        },
+        passProps: {
+          testId: testId
         }
       }
     })
@@ -41,6 +78,8 @@ export default class Drawer extends Component{
         <View style={styles.btnContainer}>
           <GoToBtn onPress={() => this.goToScreen('HomePage')} screenName={'Home page'}/>
           <GoToBtn onPress={() => this.goToScreen('Results')} screenName={'Results'}/>
+          <GoToBtn onPress={() => this.randomTest()} screenName={'Random test'}/>
+          <GoToBtn onPress={() => this.fetchData()} screenName={'Get tests'}/>
         </View>
       </View>
     );
