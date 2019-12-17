@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, TextInput} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {TestHeader} from '../components/TestHeader';
 import {Loader} from '../components/Loader';
 import shortId from 'shortid';
