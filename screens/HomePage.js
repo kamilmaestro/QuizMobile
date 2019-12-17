@@ -6,12 +6,13 @@ import {TestOverview} from '../components/TestOverview';
 import Regulations from './Regulations';
 import _ from 'lodash'
 import {Loader} from '../components/Loader';
+import SQLite from 'react-native-sqlite-storage';
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFetching: false,
+      isFetching: true,
       tests: [],
       internetConnection: false
     };
