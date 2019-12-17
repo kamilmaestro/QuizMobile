@@ -5,6 +5,7 @@ import {Loader} from '../components/Loader';
 import shortId from 'shortid';
 import {Navigation} from 'react-native-navigation';
 import {TestResult} from '../components/TestResult';
+import _ from 'lodash'
 
 export default class TestPage extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class TestPage extends Component {
         this.setState({
           id: json.id,
           name: json.name,
-          tasks: json.tasks,
+          tasks: _.shuffle(json.tasks),
           isFetching: false
         });
       })
@@ -131,7 +132,7 @@ export default class TestPage extends Component {
             <View style={styles.testBody}>
               <Text style={styles.testQuestion}>{this.state.tasks[this.state.questionNr].question}</Text>
               <View style={styles.answers}>
-                {answers}
+                {_.shuffle(answers)}
               </View>
             </View>
           </View>
