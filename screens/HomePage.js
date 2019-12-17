@@ -4,6 +4,7 @@ import {Navigation} from 'react-native-navigation';
 import {Footer} from './../components/Footer'
 import {TestOverview} from '../components/TestOverview';
 import Regulations from './Regulations';
+import _ from 'lodash'
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class HomePage extends Component {
       .then(json => {
         this.setState({
           isFetching: false,
-          tests: json
+          tests: _.shuffle(json)
         });
       })
       .catch(e => {
