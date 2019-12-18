@@ -6,10 +6,15 @@ import shortId from 'shortid';
 import {Navigation} from 'react-native-navigation';
 import {TestResult} from '../components/TestResult';
 import _ from 'lodash'
+import SQLite from 'react-native-sqlite-storage';
+
+let DB;
+const getDB = () => DB ? DB : DB = SQLite.openDatabase({ name: 'sqlitedb.db', createFromLocation: 1 });
 
 export default class TestPage extends Component {
   constructor(props) {
     super(props);
+    getDB();
     this.state = {
       id: '',
       name: '',
@@ -26,27 +31,24 @@ export default class TestPage extends Component {
       isFetching: true,
       nick: ''
     };
+    this.getAllTestData(DB);
   }
 
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {
-    fetch(`http://tgryl.pl/quiz/test/${this.props.testId}`)
-      .then(response => response.json())
-      .then(json => {
+  getAllTestData = (DB) => {
+    DB.transaction((tx) => {
+      tx.executeSql('SELECT * FROM test WHERE id = ?;', [this.props.testId], (tx, results) => {
+        let t = results.rows.item(0);
         this.setState({
-          id: json.id,
-          name: json.name,
-          tasks: _.shuffle(json.tasks),
+          id: t.id,
+          name: t.name,
+          description: t.description,
+          tasks: _.shuffle(JSON.parse(t.tasks)),
+          tags: JSON.parse(t.tags),
           isFetching: false
         });
-      })
-      .catch(e => {
-        console.error(e);
-      })
-  }
+      });
+    });
+  };
 
   countTimeLeft() {
     let timer = setInterval(countdown, 1000);
